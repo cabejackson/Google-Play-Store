@@ -1,3 +1,15 @@
+// const express = require("express");
+// const morgan = require("morgan");
+// const app = express();
+
+// app.use(morgan("common"));
+
+// app.get("/", (req, res) => {
+//   res.send("Hello Express!");
+// });
+
+// module.exports = app;
+
 // const debug = require("debug");
 const express = require("express");
 const morgan = require("morgan");
@@ -33,22 +45,23 @@ app.get("/apps", (req, res) => {
       message: `Sort must be a "rating" or a "app". Also, sort must exist!`
     });
   }
-  //sort should equal rating right?
   if (sort) {
-    results.sort((currGame, nextGame) => {
-      if (currGame[sort] < nextGame[sort]) {
-        return +1;
-      } else if (currGame[sort] > nextGame[sort]) {
+    console.log("This is the sort", sort);
+    results = results.sort((currGame, nextGame) => {
+      if (currGame[sort] > nextGame[sort]) {
+        return 1;
+      } else if (currGame[sort] < nextGame[sort]) {
         return -1;
       } else {
         return 0;
       }
     });
   }
-
   res.json(results);
 });
 
-app.listen(8000, () => {
-  console.log("Server started on PORT 8000");
-});
+module.exports = app;
+
+// app.listen(8000, () => {
+//   console.log("Server started on PORT 8000");
+// });
